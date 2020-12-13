@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1607845413 source:c:\users\wayne\documents\vscinc\doublylinkedlist\doublelinkedlist\main.c
+	<stdio.h>
+	<stdlib.h>
+
