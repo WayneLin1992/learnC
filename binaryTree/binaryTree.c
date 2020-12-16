@@ -14,10 +14,19 @@ typedef struct t_node
     int data;
     struct t_node *left, *right;
 } Node;
-/*
+/**
 *  newNode:
+*  @val: a value of a Node.
+*  
+*  Allocate a space for a Node.
 *
-*/
+*  Note val must be a int.
+*
+*  newNode() has to allocate a space in memory for a Node
+*  that left and right pointer to NULL 
+*  
+*  Return a pointer to Node
+**/
 Node* newNode(int val){
     Node *node =(Node *) malloc(sizeof(Node));
     node ->left = NULL;
@@ -25,6 +34,19 @@ Node* newNode(int val){
     node ->data = val;
     return node;
 }
+/**
+ *  constructTree:
+ *  @inorder: an array of int and sequial is inorder.
+ *  @preorder: an array of int and sequial is preorder.
+ *  @inorder_start: an int of a inorder begin index.
+ *  @inorder_end: an int of a inorder last index.
+ *  
+ *  Create a tree of an array.
+ *  
+ *  Note inorder_start must smaller than inorder_end.
+ * 
+ *     
+ **/
 Node* constructTree(int inorder[ ],int preorder[ ], int inorder_start, int inorder_end){
     static int preorder_idx = 0;
     if(inorder_start > inorder_end)
@@ -66,7 +88,21 @@ void postorder(Node *root)
         printf("%d ", root->data);
     }
 }
-
+/**
+*  idxSearch:
+*  @arr: an array of int.
+*  @start: array begin index.
+*  @end: array end index
+*  @value: search a value
+*  
+*  Searchs a number in an array
+*
+*  Note array must have value
+*  
+*  idxSearch() has to traverse the entire list to find a number that equales the value.     
+*
+*  Return: the index of the value in array.
+**/
 int idxSearch(int arr[], int start, int end, int value)
 {
     int i;
