@@ -1,5 +1,15 @@
 #include<stdio.h>
 #include<stdlib.h>
+/**
+*  Node struct
+*  @data: a int
+*  @is_leaf: a int of leaf
+*  @lchild: a pointer to t_node
+*  @rchild: a pointer to t_node
+*  
+*  Define a tree struct.
+*
+**/
 typedef struct t_node
 {
     int data;
@@ -7,7 +17,16 @@ typedef struct t_node
     struct t_node *lchild, *rchild;
     int is_leaf;   
 } Node;
-
+/**
+*  newnode
+*  @val: a int
+*  
+*  Allocate a space for a Node
+* 
+*  Note val must be int
+*
+*  Return a Node* tree lchild and rchild are NULL.
+**/
 Node* newnode(int val){
     Node *node = (Node*)malloc(sizeof(Node));
     node->data = val;
@@ -16,6 +35,14 @@ Node* newnode(int val){
     node->is_leaf = 1;
     return node;
 }
+/**
+*  destoryTree
+*  @root: is a Node*
+*  
+*  free the root, rchild and lchild
+* 
+*  Return detoryTree and free all space of the tree.
+**/
 
 void destoryTree(Node* root){
     if(root != NULL)
@@ -23,6 +50,21 @@ void destoryTree(Node* root){
         destoryTree(root->lchild);
         free(root);
 }
+/**
+*  insertTree
+*  @root: is a Node*
+*  @data: is a int for insert Node.
+*  
+*  Inserts the tree from the leaf.
+*
+*  Note the root is not NULL
+* 
+*  insertTree() allocates a new space for insert tree, and it traveles 
+*  the member of the tree to sure the position(it_leaf != 0) for the new tree.
+*  data > root-> in rchild or data < root-> in lchild
+*
+*  Return root and include new tree.
+**/
 
 Node* insertTree(Node* root, int data){
     if(root == NULL){
@@ -133,8 +175,36 @@ Node* deleteTree(Node* root, int target){
     }
     return root;
 }
+int Max_tree(Node* root){
+    Node* tmp = root;
+    while(tmp->rchild != NULL){
+        tmp = tmp->rchild;
+    }
+    printf("%d", tmp->data);
+    return tmp->data;
+}
 
-
+int Min_tree(Node* root){
+    Node* tmp = root;
+    while(tmp->lchild != NULL){
+        tmp = tmp->lchild;
+    }
+    printf("%d", tmp->data);
+    return tmp->data;
+}
+/*
+* infix
+*/
+void showTreePre(Node* root){
+    if(!root)
+        return;
+    showTree(root->lchild);
+    showTree(root->rchild);
+    printf("Node: %d-> ", root->data);    
+}
+/*
+*  incorrect prefix
+*/
 int main(){
     Node* root = newnode(45);
     root = insertTree(root,20);
@@ -143,7 +213,10 @@ int main(){
     root = insertTree(root,40);
     root = insertTree(root,50);
     root = insertTree(root,70);
+    root = insertTree(root,42);
     showTree(root);
+    printf("\n");
+    showTreePre(root);
     printf("\n");
     show_search(root,15);
     show_search(root,70);
@@ -151,6 +224,10 @@ int main(){
     root = deleteTree(root,50);
     printf("Delete 50");
     showTree(root);
+    printf("\n");
+    Max_tree(root);
+    printf("\n");
+    Min_tree(root);
     printf("\n");
     root = deleteTree(root, 45);
     showTree(root);
