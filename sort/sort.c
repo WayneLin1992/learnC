@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void xorswap(int *a, int *b){
+    if ( *a != *b){
+    *a ^ *b = *a;
+    *a ^ *b = *b;
+    *a ^ *b = *a;
+    }
+}
+
 void swap(int *a, int *b){
     int tmp = *a;
     *a = *b;
